@@ -27,11 +27,15 @@
   var hv = $('.hero-video');
   if (hv) {
     var saveData = navigator.connection && navigator.connection.saveData;
-    if (!reduce && !saveData && matchMedia('(min-width: 821px)').matches) {
+    var wide = matchMedia('(min-width: 821px)');
+    var startHero = function () {
+      if (reduce || saveData || !wide.matches || hv.getAttribute('src')) return;
       hv.src = hv.getAttribute('data-src');
       hv.preload = 'auto';
       var p = hv.play(); if (p && p.catch) p.catch(function () {});
-    }
+    };
+    startHero();
+    if (wide.addEventListener) wide.addEventListener('change', startHero);   // also start if the window is widened later
   }
 
   /* ---------- Theme toggle ---------- */
