@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://btechospitality.github.io/sitemap.xml
