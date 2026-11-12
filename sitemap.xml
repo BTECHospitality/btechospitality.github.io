@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://btechospitality.github.io/</loc>
     <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-sushi-plating.jpg</image:loc><image:title>Plating sushi rolls with ginger and wasabi</image:title><image:caption>A learner in a chef hat places sushi rolls on a black plate</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-kitchen-team.jpg</image:loc><image:title>Learners with the resort&apos;s kitchen team</image:title><image:caption>Learners in chef hats and aprons standing in a row with resort chefs and hosts in a professional kitchen</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-villa-briefing.jpg</image:loc><image:title>A resort host briefs learners during the visit</image:title><image:caption>A resort host briefing a group of learners at a villa entrance</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/jetty-welcome.jpg</image:loc><image:title>Traditional welcome on arrival at Veligandu</image:title><image:caption>Students arriving on the Veligandu jetty to a traditional drum welcome</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-doughnuts.jpg</image:loc><image:title>Frying doughnuts in the resort bakery kitchen</image:title><image:caption>A learner in a chef hat lifts doughnuts from a fryer while a chef looks on</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-table-setting.jpg</image:loc><image:title>Table setting practice in the resort restaurant</image:title><image:caption>A learner adjusts a place mat while setting a restaurant table</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-teppanyaki-class.jpg</image:loc><image:title>Teppanyaki masterclass at the resort</image:title><image:caption>Learners in chef hats at the teppanyaki counter during a sushi class</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-sushi-demo.jpg</image:loc><image:title>A resort chef guides a learner through rolling sushi</image:title><image:caption>A teppanyaki chef shows a learner how to roll sushi with a bamboo mat</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-memento-handover.jpg</image:loc><image:title>Presenting a memento at Veligandu Maldives</image:title><image:caption>A learner and a resort host holding a glass memento in front of the Veligandu sign</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/gal-tray-service.jpg</image:loc><image:title>Tray service practice in the resort restaurant</image:title><image:caption>A learner carries a tray with a glass towards a set table</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/patisserie.jpg</image:loc><image:title>Patisserie practical in a professional kitchen</image:title><image:caption>Students and chefs behind cakes and pastries</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/boat-farewell.jpg</image:loc><image:title>Farewell from the Veligandu team</image:title><image:caption>Resort staff wave farewell as the boat departs</image:caption></image:image>
+    <image:image><image:loc>https://btechospitality.github.io/img/crest.png</image:loc><image:title>Thoddoo School crest</image:title></image:image>
   </url>
 </urlset>

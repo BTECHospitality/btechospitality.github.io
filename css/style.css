@@ -147,7 +147,7 @@ nav.primary a.active{color:var(--heading);font-weight:600}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(5,32,37,.9) 0%,rgba(5,32,37,.6) 45%,rgba(5,32,37,.08) 100%),linear-gradient(0deg,rgba(5,32,37,.6),transparent 45%)}
 .hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:96px;width:100%}
 .hero .eyebrow{color:var(--gold-2)}
-.hero h1{color:#fff;font-size:clamp(2.4rem,5.8vw,4.6rem);max-width:15ch;font-weight:600;letter-spacing:-.02em}
+.hero h1{color:#fff;font-size:clamp(2.2rem,4.6vw,3.7rem);max-width:22ch;font-weight:600;letter-spacing:-.02em}
 .hero h1 em{font-style:italic;color:var(--gold-2);font-weight:500}
 .hero p{font-size:1.16rem;max-width:52ch;color:#e5eeec}
 .hero .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
