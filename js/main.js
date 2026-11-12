@@ -115,38 +115,61 @@
     $$('.reveal').forEach(function (el) { ro.observe(el); });
   }
 
-  /* ---------- Gallery layout: size tiles by photo shape ---------- */
-  $$('.gal').forEach(function (g) {
-    var land = 0;
-    $$('button', g).forEach(function (b) {
-      var m = b.querySelector('img'), w = +m.getAttribute('width'), h = +m.getAttribute('height');
-      if (b.dataset.span) { b.classList.add(b.dataset.span); return; }
-      if (!w || !h) return;
-      var r = w / h;
-      if (r < 0.85) b.classList.add('tall');
-      else if (r > 1.45) { land++; b.classList.add(land % 5 === 1 ? 'big' : 'wide'); }
-    });
-  });
-
-  /* ---------- Gallery filters + show more ---------- */
-  // Only the hand-picked [data-featured] photos show at first; the rest open on click.
-  var items = $$('#gallery .gal button'), expanded = false;
+  /* ---------- Gallery: filters, show-more and a gap-free justified layout ---------- */
+  // The first photos in the page are the best ones. Every row is scaled so it fills the full width exactly (no gaps, no cropping).
+  var galEl = $('#gallery .gal'), items = $$('#gallery .gal button'), expanded = false, FIRST = 12, lastW = 0;
   var moreWrap = $('.gal-more'), moreBtn = moreWrap && $('button', moreWrap);
+  if (galEl) galEl.classList.add('justified');
+  function ratioOf(b) {
+    var m = b.querySelector('img'), w = +m.getAttribute('width') || m.naturalWidth || 4, h = +m.getAttribute('height') || m.naturalHeight || 3;
+    return Math.max(0.45, Math.min(3.2, w / h));
+  }
+  function partition(r, k) {                      // split the photos into k consecutive rows of similar total width
+    var n = r.length, P = [0], i, j, row;
+    for (i = 0; i < n; i++) P.push(P[i] + r[i]);
+    var target = P[n] / k, INF = 1e12, dp = [], cut = [];
+    for (row = 0; row <= k; row++) { dp.push([]); cut.push([]); for (j = 0; j <= n; j++) { dp[row].push(INF); cut[row].push(0); } }
+    dp[0][0] = 0;
+    for (row = 1; row <= k; row++) for (j = row; j <= n; j++) for (i = row - 1; i < j; i++) {
+      var s = P[j] - P[i], c = dp[row - 1][i] + (s - target) * (s - target);
+      if (c < dp[row][j]) { dp[row][j] = c; cut[row][j] = i; }
+    }
+    var rows = [], end = n;
+    for (row = k; row >= 1; row--) { var st = cut[row][end]; rows.unshift([st, end]); end = st; }
+    return rows;
+  }
+  function layoutGallery() {
+    if (!galEl) return;
+    var vis = items.filter(function (b) { return !b.hidden && !b.classList.contains('collapsed'); });
+    var W = galEl.clientWidth; if (!vis.length || !W) return;
+    lastW = W;
+    var gap = W < 560 ? 6 : 10, T = W < 560 ? 150 : (W < 900 ? 200 : 250);
+    var r = vis.map(ratioOf), S = r.reduce(function (a, b) { return a + b; }, 0);
+    var k = Math.max(1, Math.min(vis.length, Math.round(S * T / W)));
+    galEl.style.gap = gap + 'px';
+    partition(r, k).forEach(function (rg) {
+      var cnt = rg[1] - rg[0], sum = 0, q;
+      for (q = rg[0]; q < rg[1]; q++) sum += r[q];
+      var h = (W - gap * (cnt - 1) - 1) / sum;
+      for (q = rg[0]; q < rg[1]; q++) { vis[q].style.width = (Math.floor(r[q] * h * 100) / 100) + 'px'; vis[q].style.height = (Math.round(h * 100) / 100) + 'px'; }
+    });
+  }
   function applyLimit() {
     var shown = items.filter(function (i) { return !i.hidden; });
-    var featured = shown.filter(function (i) { return i.hasAttribute('data-featured'); });
-    var useFeatured = !expanded && featured.length > 0 && featured.length < shown.length;
-    shown.forEach(function (i) { i.classList.toggle('collapsed', useFeatured && !i.hasAttribute('data-featured')); });
+    var collapse = !expanded && shown.length > FIRST + 2;
+    shown.forEach(function (i, n) { i.classList.toggle('collapsed', collapse && n >= FIRST); });
     if (moreWrap) {
-      moreWrap.hidden = !useFeatured;
+      moreWrap.hidden = !collapse;
       if (moreBtn) moreBtn.firstChild.nodeValue = 'View all ' + shown.length + ' photos ';
     }
+    layoutGallery();
   }
   $$('.filters button').forEach(function (b) {
     var f = b.dataset.f, n = f === 'all' ? items.length : items.filter(function (i) { return i.dataset.c === f; }).length;
     var ct = document.createElement('span'); ct.className = 'ct'; ct.textContent = n; b.appendChild(ct);
     b.addEventListener('click', function () {
       $$('.filters button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      expanded = false;
       items.forEach(function (i) {
         var show = f === 'all' || i.dataset.c === f;
         i.hidden = !show;
@@ -157,6 +180,8 @@
   });
   if (moreBtn) moreBtn.addEventListener('click', function () { expanded = true; applyLimit(); });
   applyLimit();
+  if (window.ResizeObserver && galEl) new ResizeObserver(function () { if (galEl.clientWidth !== lastW) layoutGallery(); }).observe(galEl);
+  window.addEventListener('resize', function () { if (galEl && galEl.clientWidth !== lastW) layoutGallery(); });
 
   /* ---------- Lightbox ---------- */
   var d = $('#lb'), im = $('#lbi'), cp = $('#lbc'), cnt = $('#lbcount'), cur = 0, curList = items;
