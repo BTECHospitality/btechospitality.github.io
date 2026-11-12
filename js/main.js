@@ -138,22 +138,34 @@
     for (row = k; row >= 1; row--) { var st = cut[row][end]; rows.unshift([st, end]); end = st; }
     return rows;
   }
-  function layoutGallery() {
-    if (!galEl) return;
-    var vis = items.filter(function (b) { return !b.hidden && !b.classList.contains('collapsed'); });
-    var W = galEl.clientWidth; if (!vis.length || !W) return;
-    lastW = W;
+  function justify(el, vis) {                      // fill every row of el to the full width with the photos in vis
+    var W = el.clientWidth; if (!vis.length || !W) return 0;
     var gap = W < 560 ? 6 : 10, T = W < 560 ? 150 : (W < 900 ? 200 : 250);
     var r = vis.map(ratioOf), S = r.reduce(function (a, b) { return a + b; }, 0);
     var k = Math.max(1, Math.min(vis.length, Math.round(S * T / W)));
-    galEl.style.gap = gap + 'px';
+    el.style.gap = gap + 'px';
     partition(r, k).forEach(function (rg) {
       var cnt = rg[1] - rg[0], sum = 0, q;
       for (q = rg[0]; q < rg[1]; q++) sum += r[q];
       var h = (W - gap * (cnt - 1) - 1) / sum;
       for (q = rg[0]; q < rg[1]; q++) { vis[q].style.width = (Math.floor(r[q] * h * 100) / 100) + 'px'; vis[q].style.height = (Math.round(h * 100) / 100) + 'px'; }
     });
+    return W;
   }
+  function layoutGallery() {
+    if (!galEl) return;
+    var vis = items.filter(function (b) { return !b.hidden && !b.classList.contains('collapsed'); });
+    lastW = justify(galEl, vis) || lastW;
+  }
+  // every batch gallery under "Work by batch" uses the same gap-free layout (it is laid out when its batch is opened)
+  $$('.work-gal').forEach(function (g) {
+    var tiles = $$('button', g); if (!tiles.length) return;
+    g.classList.add('justified');
+    var wLast = 0, run = function () { var w = g.clientWidth; if (w && w !== wLast) { wLast = justify(g, tiles); } };
+    if (window.ResizeObserver) new ResizeObserver(run).observe(g);
+    window.addEventListener('resize', run);
+    g.__relayout = function () { wLast = 0; run(); };
+  });
   function applyLimit() {
     var shown = items.filter(function (i) { return !i.hidden; });
     var collapse = !expanded && shown.length > FIRST + 2;
@@ -250,6 +262,7 @@
       if (open) {
         t.setAttribute('aria-expanded', 'true');
         panel.hidden = false;
+        $$('.work-gal', panel).forEach(function (g) { if (g.__relayout) g.__relayout(); });
         setTimeout(function () { panel.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); }, 60);
       }
     });
