@@ -587,3 +587,122 @@ dialog.vb .vb-x{position:absolute;top:10px;right:10px;width:36px;height:36px;min
 /* ---------- Justified body text ---------- */
 .split p,.head .lead,.feature p,.pillar p,.three p,.career>p,.step p,.faq details p,.alum blockquote,.roles-head p,.work-panel>p,.note,.contact .lead,.faq-grid .lead{text-align:justify;text-justify:inter-word;-webkit-hyphens:auto;hyphens:auto}
 .split p,.feature p,.note,.roles-head p{max-width:none}
+
+/* ================= PHONE POLISH (screens up to 600px): smaller type, tighter spacing, left-aligned text ================= */
+@media (max-width:600px){
+  html{scroll-padding-top:calc(var(--header-h) + 8px)}
+  body{font-size:.94rem;line-height:1.62}
+  p{margin-bottom:.85em}
+  .wrap{padding-left:18px;padding-right:18px}
+  section{padding:50px 0}
+  /* text: no justify on narrow screens (it creates big word gaps) */
+  .split p,.head .lead,.feature p,.pillar p,.three p,.career>p,.step p,.faq details p,.alum blockquote,.roles-head p,.work-panel>p,.note,.contact .lead,.faq-grid .lead{text-align:left;-webkit-hyphens:manual;hyphens:manual}
+  /* headings */
+  h2{font-size:1.5rem;line-height:1.2}
+  h3{font-size:1.05rem}
+  .lead{font-size:.97rem;line-height:1.6}
+  .eyebrow{font-size:.64rem;letter-spacing:.14em;margin-bottom:12px}
+  .eyebrow::before{width:20px;margin-right:9px}
+  .head{gap:14px;margin-bottom:26px}
+  /* top bar + header */
+  .util{font-size:.7rem}
+  .util .wrap{padding-top:6px;padding-bottom:6px}
+  .util .wrap>div span:nth-child(2){display:none}
+  .util .wrap>div span+span::before{display:none}
+  :root{--header-h:58px}
+  .brand img{width:36px;height:36px;border-radius:8px}
+  .brand b{font-size:.98rem}
+  .icon-btn{width:38px;height:38px}
+  .icon-btn svg{width:17px;height:17px}
+  .menu-btn{width:40px;height:40px;border-radius:10px}
+  .menu-btn span{left:11px;right:11px}
+  .menu-btn span:nth-child(1){top:13px}.menu-btn span:nth-child(2){top:19px}.menu-btn span:nth-child(3){top:25px}
+  .menu-btn[aria-expanded="true"] span:nth-child(1),.menu-btn[aria-expanded="true"] span:nth-child(3){top:19px}
+  nav.primary.open a{padding:12px 6px;font-size:.95rem}
+  /* hero */
+  .hero{min-height:74vh;min-height:74svh}
+  .hero .wrap{padding-top:70px;padding-bottom:50px}
+  .hero h1{font-size:1.85rem;line-height:1.14;max-width:none}
+  .hero p{font-size:.97rem;line-height:1.55}
+  .hero .btns{margin-top:22px;gap:10px}
+  .hero .btns{flex-direction:column;align-items:stretch}
+  .hero .btns .cta{flex:none;width:100%;justify-content:center}
+  .scroll-cue{display:none}
+  .cta{padding:12px 20px;font-size:.88rem}
+  .cta.sm{padding:10px 16px}
+  /* facts band */
+  .fact{padding:15px 0}
+  .fact dt{font-size:.6rem;margin-bottom:6px}
+  .fact dd{font-size:.95rem}
+  /* content blocks */
+  .split{gap:26px}
+  .checks li{padding:10px 0 10px 34px;font-size:.92rem}
+  .figure figcaption{font-size:.76rem}
+  .pillars{gap:12px}
+  .pillar{padding:20px 18px 6px}
+  .pillar .n{width:36px;height:36px;font-size:.74rem}
+  .pillar h3{margin-top:12px}
+  .pillar p,.three p{font-size:.9rem}
+  .strands{gap:14px}
+  .strand{padding:20px 16px}
+  .units li{font-size:.88rem;padding:9px 0}
+  .three{gap:14px}
+  .three>div{padding:22px 18px}
+  .three .ic{width:44px;height:44px;margin-bottom:14px}
+  .feature{margin-top:46px;gap:20px}
+  .feature h3{font-size:1.25rem}
+  .feature .tag{font-size:.62rem}
+  .meta{font-size:.8rem}
+  /* gallery */
+  .filters{gap:6px;margin-bottom:18px}
+  .filters button,.work-tabs button{font-size:.8rem;padding:8px 13px}
+  .gal span{font-size:.68rem}
+  .gal-more{margin-top:22px}
+  /* work by batch */
+  .work-tabs button{padding:8px 12px 8px 8px}
+  .b-body b{font-size:1rem}
+  .work-panel h3{font-size:1.1rem}
+  .work-panel>p{font-size:.88rem}
+  .work-close{font-size:.76rem;padding:8px 13px}
+  /* news, careers, alumni, faq */
+  .clips{gap:26px}
+  .roles-head{margin-top:44px}
+  .career{padding:20px 18px 16px}
+  .career h3{font-size:1.05rem}
+  .c-roles li{font-size:.76rem;padding:5px 10px}
+  .step p{font-size:.9rem}
+  .roles li{font-size:.84rem;padding:7px 13px}
+  .alum{padding:28px 20px 24px}
+  .alum-photo{width:132px;height:132px;margin-bottom:16px}
+  .alum-name{font-size:1.2rem}
+  .alum-role{font-size:.7rem}
+  .alum blockquote{font-size:.9rem;line-height:1.62;padding-top:34px}
+  .faq summary{font-size:1rem;padding:16px 2px;gap:14px}
+  .faq details p{font-size:.9rem}
+  .faq summary::after{flex-basis:26px;height:26px}
+  .partners{gap:10px}
+  /* contact + form */
+  .contact-grid{gap:26px;margin-top:26px}
+  .cards{gap:10px}
+  .cards div{padding:16px 18px}
+  .cards dt{font-size:.62rem}
+  .cards dd{font-size:.98rem;line-height:1.4}
+  .form{padding:22px 18px}
+  .form h3{font-size:1.15rem}
+  .form label{font-size:.78rem;margin:12px 0 5px}
+  .form input,.form select,.form textarea{font-size:16px;padding:11px 12px}
+  .form textarea{min-height:100px}
+  /* footer */
+  footer .wrap{padding-top:40px;padding-bottom:26px;gap:26px}
+  footer{font-size:.82rem}
+  .legal .wrap{gap:6px}
+  /* floating buttons */
+  .fabs{right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+  .fab{width:46px;height:46px}.fab.top{width:42px;height:42px}
+}
+@media (max-width:380px){
+  body{font-size:.92rem}
+  h2{font-size:1.4rem}
+  .hero h1{font-size:1.7rem}
+  .brand small{display:none}
+}
